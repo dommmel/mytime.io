@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><%= title %> in local time (your timezone)</title>
+<link rel="canonical" href="http://mytime.io<%= request.fullpath %>" />
+<title><%= @title %> in local time (your timezone)</title>
 <style type="text/css">
 	div {text-align: center;}
 	#local {font-size: 2em;}
@@ -11,7 +12,7 @@
 
 <body>
 	<div>
-		<span><%= title %></span> is
+		<span><%= @title %></span> is
 	</div>
 	<div>
 		<span id="local">??:??:??</span>
@@ -23,7 +24,7 @@
 		(your timezone is the same as "<span id="zone">???</span>")
 	</div>
 <script>
-	var date = new Date('2012-11-29 <%= time %> <%= time_standard %>');
+	var date = new Date('2012-11-29 <%= @time %> <%= @time_standard %>');
  	document.getElementById("local").innerHTML = date.toLocaleTimeString();
 
  	/*! jsTimezoneDetect - v1.0.5 - 2013-04-01 */
