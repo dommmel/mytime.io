@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="canonical" href="http://mytime.io<%= request.fullpath %>" />
+<meta name="google-site-verification" content="9QINmj0KWvuBWpabmxnOB7JIt8pzNxv-zcWMKGgldow" />
+<title><%= @page_title %></title>
+<style type="text/css">
+  div {text-align: center;}
+  #local {font-size: 2em;}
+  .note {margin-top: 1em;font-size: 0.7em;}
+</style>
+</head>
+<body>
+  <%= yield %>
+  <script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-49190409-1', 'mytime.io');
+  ga('send', 'pageview');
+  </script>
+</body>
+</html>
