@@ -18,6 +18,8 @@ get "/:time/:time_standard" do
   
   @time = d.strftime("%H:%M:%S")
   @time_standard = params[:time_standard].upcase
+
+  @today_string = Time.now.strftime("%Y/%m/%d")
   @title = params[:time] + " " + @time_standard
   @page_title = @title + "in local time (your timezone)"
   if ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"].include? @time_standard
