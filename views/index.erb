@@ -21,7 +21,7 @@
     ds.match(/[A-Z]{3,4}/)[0];
     if (TZ == "GMT" && /(GMT\W*\d{4})/.test(ds)) TZ = RegExp.$1;
     // show tz
-    document.getElementById("zone").innerHTML = ("assuming your time zone is <a target='_blank' rel='nofollow' href='https://www.google.com/search?q=%22" + TZ + "%22+timezone+site:wikipedia.org&btnI'>" + TZ + "</a>");
+    document.getElementById("zone").innerHTML = ("assuming the date is today and your time zone is <a target='_blank' rel='nofollow' href='https://www.google.com/search?q=%22" + TZ + "%22+timezone+site:wikipedia.org&btnI'>" + TZ + "</a>");
   } catch(e) {
     console.log(e);
   }
