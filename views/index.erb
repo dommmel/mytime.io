@@ -10,7 +10,7 @@
 <div id="zone"></div>
 
 <script type="text/javascript">
-  var date = new Date('<%= @today_string %> <%= @time %> <%= @time_standard %>');
+  var date = new Date('<%= @today_string %> <%= @time %> <%= @time_zone %>');
   document.getElementById("local").innerHTML = date.toLocaleTimeString();
   
   try {
