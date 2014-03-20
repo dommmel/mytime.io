@@ -21,7 +21,7 @@ get "/:time/:time_standard" do
 
   @today_string = Time.now.strftime("%Y/%m/%d")
   @title = params[:time] + " " + @time_standard
-  @page_title = @title + "in local time (your timezone)"
+  @page_title = @title + " in local time (your timezone)"
   if ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"].include? @time_standard
     erb :index
   else
