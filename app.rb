@@ -18,8 +18,6 @@ get "/" do
   erb :not_found
 end
 
-
-
 def parse_day(string)
   begin
     return Date.parse(string).strftime
@@ -27,7 +25,6 @@ def parse_day(string)
     return nil
   end
 end
-
 
 def parse_timezone(string)
   begin
@@ -87,15 +84,16 @@ get "/:time/:timezone/?:day?" do
     redirect to("/" + should_url_elements.join("/"))
   end
  
+  # I no day was given use "today"
   if d
     @day = d
-    @day_string_for_javascript = Date.parse(d).strftime("%Y/%m/%d")
+    parsed_day = Date.parse(d)
   else
     @day= "today"
-    @day_string_for_javascript = Time.now.strftime("%Y/%m/%d")
-  end
+    parsed_day  = Time.now
+   end
  
-
+  @day_string_for_javascript = parsed_day.strftime("%Y/%m/%d")
   @time = DateTime.parse(t).strftime("%H:%M:%S")
   @time_zone = tz
 
