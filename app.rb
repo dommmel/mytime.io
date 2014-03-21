@@ -1,5 +1,14 @@
 require 'sinatra'
 
+# Remove trailing slashes and redirect
+before do
+  url = request.url
+  url.chomp!('/') if request.path_info =~ %r{^/(.*)/$}
+  if url != request.url
+    redirect to(url), 301
+  end 
+end
+
 not_found do
   erb :not_found
 end
@@ -9,42 +18,90 @@ get "/" do
   erb :not_found
 end
 
-get "/:time/:time_zone" do
 
-  parsable_timezones = ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"]
-  
 
-  # redirect from /timezone/time to /time/timezone
+def parse_day(string)
   begin
-    d = DateTime.parse(params[:time_zone])
-    if parsable_timezones.include? params[:time].upcase
-      redirect to("/#{params[:time_zone]}/#{params[:time].upcase}"), 301
+    return Date.parse(string).strftime
+  rescue
+    return nil
+  end
+end
+
+
+def parse_timezone(string)
+  begin
+    tz = string.upcase
+    return tz if ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"].include? tz
+  rescue
+    return nil
+  end
+end
+
+# we detect the time string by makeing sure DateTime parses it, but Date does not
+def parse_time(string)
+  begin
+    DateTime.parse(string)
+    begin
+      Date.parse(string)
+    rescue
+      # we return the original string since we want to have distinct urls/landingpages for 17:00 and 5am
+      return string
     end
+    return nil
   rescue
+    return nil
+  end
+end
+
+get "/:time/:timezone/?:day?" do
+  
+  t = params[:time]
+  tz = params[:timezone]
+  d = params[:day]
+
+  is_url_elements = [t,tz,d].compact # remove nils resp. missing day
+  should_url_elements = []
+
+  # Sort parameters
+  [method(:parse_time), method(:parse_timezone), method(:parse_day)].each_with_index do |m, index|
+    is_url_elements.each do |element|
+      parsed_element = m.call element
+      unless parsed_element.nil?
+        should_url_elements[index] = parsed_element 
+        break
+      end
+    end
   end
 
-  # Redirect to uppercase time zones
-  if !!/[[:lower:]]/.match(params[:time_zone])
-    redirect to("/#{params[:time]}/#{params[:time_zone].upcase}"), 301
-  end
+  logger.info "SHOULD: " + should_url_elements.to_s
+  logger.info "IS: " + is_url_elements.to_s
 
-  # Parse date
-  begin
-    d = DateTime.parse(params[:time]) 
-  rescue
-    halt 404 
-  end
-
-  @time = d.strftime("%H:%M:%S")
-  @time_zone = params[:time_zone].upcase
-
-  @today_string = Time.now.strftime("%Y/%m/%d")
-  @title = params[:time] + " " + @time_zone
-  @page_title = @title + " in local time (your timezone)"
-  if parsable_timezones.include? @time_zone
-    erb :index
-  else
+  # throw 404 if timezone or time is missing (day is optional)
+  if should_url_elements[0].nil? or should_url_elements[1].nil?
     halt 404
   end
+
+  # redirect to correct parameter order and spelling
+  unless is_url_elements == should_url_elements
+    redirect to("/" + should_url_elements.join("/"))
+  end
+ 
+  if d
+    @day = d
+    @day_string_for_javascript = Date.parse(d).strftime("%Y/%m/%d")
+  else
+    @day= "today"
+    @day_string_for_javascript = Time.now.strftime("%Y/%m/%d")
+  end
+ 
+
+  @time = DateTime.parse(t).strftime("%H:%M:%S")
+  @time_zone = tz
+
+  @title = t + " " + tz
+  @page_title = @title + " in local time (your timezone)"
+  
+  erb :index
 
 end

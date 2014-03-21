@@ -10,7 +10,7 @@
 <div id="zone"></div>
 
 <script type="text/javascript">
-  var date = new Date('<%= @today_string %> <%= @time %> <%= @time_zone %>');
+  var date = new Date('<%= @day_string_for_javascript %> <%= @time %> <%= @time_zone %>');
   document.getElementById("local").innerHTML = date.toLocaleTimeString();
   
   try {
@@ -21,7 +21,7 @@
     ds.match(/[A-Z]{3,4}/)[0];
     if (TZ == "GMT" && /(GMT\W*\d{4})/.test(ds)) TZ = RegExp.$1;
     // show tz
-    document.getElementById("zone").innerHTML = ("assuming the date is today and your time zone is <a target='_blank' rel='nofollow' href='https://www.google.com/search?q=%22" + TZ + "%22+timezone+site:wikipedia.org&btnI'>" + TZ + "</a>");
+    document.getElementById("zone").innerHTML = ("assuming the date is <%= @day %> and your time zone is <a target='_blank' rel='nofollow' href='https://www.google.com/search?q=%22" + TZ + "%22+timezone+site:wikipedia.org&btnI'>" + TZ + "</a>");
   } catch(e) {
     console.log(e);
   }
