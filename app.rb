@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'newrelic_rpm'
 
 # Remove trailing slashes and redirect
 before do
