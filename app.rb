@@ -1,5 +1,7 @@
 require 'sinatra'
 require 'newrelic_rpm'
+require 'date'
+require 'timezone_parser'
 
 # Remove trailing slashes and redirect
 before do
@@ -20,6 +22,7 @@ get "/" do
 end
 
 def parse_day(string)
+  return nil if string.start_with? "UTC"
   begin
     return Date.parse(string).strftime
   rescue
@@ -27,17 +30,46 @@ def parse_day(string)
   end
 end
 
+UTC_OFFSET_WITH_COLON = '%s%02d:%02d'
+UTC_OFFSET_WITHOUT_COLON = UTC_OFFSET_WITH_COLON.sub(':', '')
+def seconds_to_utc_offset(seconds, colon = true)
+  format = colon ? UTC_OFFSET_WITH_COLON : UTC_OFFSET_WITHOUT_COLON
+  sign = (seconds < 0 ? '-' : '+')
+  hours = seconds.abs / 3600
+  minutes = (seconds.abs % 3600) / 60
+  format % [sign, hours, minutes]
+end
+
 def parse_timezone(string)
-  begin
-    tz = string.upcase
-    return tz if ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"].include? tz
-  rescue
-    return nil
+  tz = string.upcase
+  supported_timezones = ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"]
+  if supported_timezones.include? tz
+    @time_zone = tz
+    return tz 
+  else
+    guessed_offset = TimezoneParser::Abbreviation.new(tz).getOffsets.first
+    if guessed_offset.nil?
+      if tz.start_with? "UTC" or tz.start_with? "GMT"
+        offset_regex = /^([+]((14|(14[:]?00))|([0][0-9]|[1][01])|([0][0-9]|[1][01])[:]?[0-5][0-9]))|([-]((12|(12[:]?00))|([0][0-9]|[1][01])|([0][0-9]|[1][01])[:]?[0-5][0-9]))$/
+        if  offset_regex.match(tz.sub(/^(UTC|GMT)/, '')).nil?
+          return nil
+        else
+          @time_zone = tz
+          return tz
+        end
+      else
+        return nil
+      end
+    else
+      @time_zone = "UTC"  + seconds_to_utc_offset(guessed_offset)
+      return tz 
+    end
   end
 end
 
 # we detect the time string by makeing sure DateTime parses it, but Date does not
 def parse_time(string)
+  return nil if string.start_with? "UTC"
   begin
     DateTime.parse(string)
     begin
@@ -96,8 +128,6 @@ get "/:time/:timezone/?:day?" do
  
   @day_string_for_javascript = parsed_day.strftime("%Y/%m/%d")
   @time = DateTime.parse(t).strftime("%H:%M:%S")
-  @time_zone = tz
-
   @title = t + " " + tz
   @page_title = @title + " in local time (your timezone)"
   
