@@ -1,4 +1,6 @@
 (function() {
+var mytimeAttr = "data-mytime";
+var mytimeTimeZoneAttr = "data-mytime-showtimezone";
 function getAllElementsWithAttribute(attribute)
 {
   var matchingElements = [];
@@ -26,28 +28,29 @@ function load(element) {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
           var date = new Date(xmlhttp.responseText);
           var TZ = "";
-          try {
-            // Get timezone. See http://stackoverflow.com/a/12496442
-            var ds = date.toString();
-            TZ = ds.indexOf('(') > -1 ?
-            ds.match(/\([^\)]+\)/)[0].match(/[A-Z]/g).join('') :
-            ds.match(/[A-Z]{3,4}/)[0];
-            if (TZ == "GMT" && /(GMT\W*\d{4})/.test(ds)) TZ = RegExp.$1;
-            TZ = " "+ TZ;
-            // show tz
-          } catch(e) { }
+          var tzAttr = element.getAttribute(mytimeTimeZoneAttr);
+          if ((tzAttr) && tzAttr !== "false") {
+            try {
+              // Get timezone. See http://stackoverflow.com/a/12496442
+              var ds = date.toString();
+              TZ = ds.indexOf('(') > -1 ?
+              ds.match(/\([^\)]+\)/)[0].match(/[A-Z]/g).join('') :
+              ds.match(/[A-Z]{3,4}/)[0];
+              if (TZ == "GMT" && /(GMT\W*\d{4})/.test(ds)) TZ = RegExp.$1;
+              TZ = " "+ TZ;
+            } catch(e) { }
+          }
           element.innerHTML = date.toLocaleTimeString() + TZ;
         }
     }
-    xmlhttp.open("GET", "http://mytime.io/" +  element.getAttribute("data-mytime"), true);
+    xmlhttp.open("GET", "http://mytime.io/" +  element.getAttribute(mytimeAttr), true);
     xmlhttp.setRequestHeader('Accept', 'text/plain');
     xmlhttp.send();
 }
 
-var elems = getAllElementsWithAttribute("data-mytime")
+var elems = getAllElementsWithAttribute(mytimeAttr)
 for (index = 0; index < elems.length; ++index) {
-    var what = elems[index].getAttribute("data-mytime");
-    load(elems[index]);
+  load(elems[index]);
 }
 })();
 
