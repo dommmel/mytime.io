@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'sinatra/respond_with'
 require 'newrelic_rpm'
 require 'date'
 require 'timezone_parser'
@@ -85,7 +86,7 @@ def parse_time(string)
 end
 
 get "/:time/:timezone/?:day?" do
-  
+
   t = params[:time]
   tz = params[:timezone]
   d = params[:day]
@@ -131,6 +132,8 @@ get "/:time/:timezone/?:day?" do
   @title = t + " " + tz
   @page_title = @title + " in local time (your timezone)"
   
-  erb :index
-
+  respond_to do |f|
+    f.html { erb(:index) }
+    f.txt { "#{@day_string_for_javascript} #{@time} #{@time_zone}"  }
+  end
 end
