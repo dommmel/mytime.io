@@ -1,13 +1,15 @@
-<div>
-  <h1><%= @title %></h1> is
+<div class="wrapper">
+  <div class="title">
+    <h1><%= @title %></h1> is
+  </div>
+  <div>
+    <span id="local">??:??:??</span>
+  </div>
+  <div>
+    your time
+  </div>
+  <div id="zone"></div>
 </div>
-<div>
-  <span id="local">??:??:??</span>
-</div>
-<div>
-  your time
-</div>
-<div id="zone"></div>
 
 <script type="text/javascript">
   var date = new Date('<%= @day_string_for_javascript %> <%= @time %> <%= @time_zone %>');
@@ -25,6 +27,4 @@
   } catch(e) {
     console.log(e);
   }
-
-
 </script>

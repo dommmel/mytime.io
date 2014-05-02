@@ -6,15 +6,51 @@
 <meta name="google-site-verification" content="9QINmj0KWvuBWpabmxnOB7JIt8pzNxv-zcWMKGgldow" />
 <title><%= @page_title %></title>
 <style type="text/css">
-  body { font-family: 'Anonymous Pro', "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace; margin-top: 4em;}
+  body { font-family: 'Anonymous Pro', "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;}
   h1 {font-size: 1em; display: inline;}
   div {text-align: center;}
   #local {font-size: 2em; line-height: 1.5em;}
-  #zone, .note {margin-top: 3em;font-size: 0.7em;}
+  #zone, .note {padding-top: 3em;font-size: 0.7em;}
+  .hint {padding: 2em;line-height: 2em;}
+  .note {color:grey;}
+  .note > a {color:darkgrey;}
+  ul {list-style: none;}
+  * {margin: 0;}
+  a {white-space: nowrap;}
+  html, body {height: 100%;}
+  .title {padding-top: 4em;}
+  .wrapper {
+    min-height: 100%;
+    margin-bottom: -142px;}
+  .wrapper:after {
+    content: "";
+    display: block;}
+  .footer, .wrapper:after {height: 142px;}
 </style>
 </head>
 <body>
   <%= yield %>
+<div class="footer">
+  <div class="note">Found a bug, have feedback, questions or ideas? <script type="text/javascript" language="javascript">
+  { coded = "rDwb@wnMZrwG.DMd"
+    key = "ohyfsWk2ZOYV9zmFblGwtTISUCAe4BH81n30d5gLcNEMipPqJD7KRQx6avuXrj"
+    shift=coded.length
+    link=""
+    for (i=0; i<coded.length; i++) {
+      if (key.indexOf(coded.charAt(i))==-1) {
+        ltr = coded.charAt(i)
+        link += (ltr)
+      }
+      else {     
+        ltr = (key.indexOf(coded.charAt(i))-shift+key.length) % key.length
+        link += (key.charAt(ltr))
+      }
+    }
+  document.write("<a href='mailto:"+link+"?subject=mytime.io'>Drop us a note</a>")
+  }
+  </script>
+  </div>
+</div>
   <script type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
