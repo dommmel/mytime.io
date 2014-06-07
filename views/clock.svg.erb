@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- german-clock.svg, Copyright (c) 2012 Rüdiger Appel -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     version="1.1"
+     baseProfile="full"
+     preserveAspectRatio="xMinYMin meet"
+     viewBox="0 0 200 200">
+  <defs>
+    <symbol id="threeHourStroke">
+      <line x1="100" y1="0" x2="100" y2="30" style="stroke:#333; stroke-width:8.4; stroke-linecap:butt"/>
+    </symbol>
+    <symbol id="hourStroke">
+      <line x1="100" y1="0" x2="100" y2="24"  style="stroke:#333; stroke-width:8.4; stroke-linecap:butt"/>
+    </symbol>
+    <symbol id="minuteStroke">
+      <line x1="100" y1="0" x2="100" y2="8" style="stroke:#333; stroke-width:3.6; stroke-linecap:butt"/>
+    </symbol>
+    <symbol id="quarterStrokes">
+      <use xlink:href="#threeHourStroke" />
+      <use xlink:href="#minuteStroke" transform="rotate( 6, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(12, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(18, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(24, 100, 100)"/>
+      <use xlink:href="#hourStroke"   transform="rotate(30, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(36, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(42, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(48, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(54, 100, 100)"/>
+      <use xlink:href="#hourStroke"   transform="rotate(60, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(66, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(72, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(78, 100, 100)"/>
+      <use xlink:href="#minuteStroke" transform="rotate(84, 100, 100)"/>
+    </symbol>
+    <clipPath id="dialCircle">
+      <circle cx="100" cy="100" r="100"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#dialCircle)">
+    <use xlink:href="#quarterStrokes"/>
+    <use xlink:href="#quarterStrokes" transform="rotate( 90, 100, 100)"/>
+    <use xlink:href="#quarterStrokes" transform="rotate(180, 100, 100)"/>
+    <use xlink:href="#quarterStrokes" transform="rotate(270, 100, 100)"/>
+  </g>
+  <g id="<%= prefix %>hourHand" visibility="hidden">
+    <polygon points="94,46 100,40 106,46 106,118 94,118" style="fill:#222; stroke:none"/>
+  </g>
+  <g id="<%= prefix %>minuteHand" visibility="hidden">
+    <polygon points="95.5,11.5 100,7 104.5,11.5 104.5,122 95.5,122" style="fill:#222; stroke:none"/>
+  </g>
+</svg> 

@@ -129,6 +129,8 @@ get "/:time/:timezone/?:day?" do
  
   @day_string_for_javascript = parsed_day.strftime("%Y/%m/%d")
   @time = DateTime.parse(t).strftime("%H:%M:%S")
+  @hours = DateTime.parse(t).strftime("%H")
+  @minutes = DateTime.parse(t).strftime("%M")
   @title = t + " " + tz
   @page_title = @title + " in local time (your timezone)"
   

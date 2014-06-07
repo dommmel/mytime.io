@@ -9,6 +9,16 @@
     your time
   </div>
   <div id="zone"></div>
+  <div>
+    <div class="clock">
+      <span class="label">theirs</span>
+      <%= erb :"clock.svg", locals: {prefix: "source"} %>
+    </div>
+    <div class="clock">
+      <span class="label">yours</span>
+      <%= erb :"clock.svg", locals: {prefix: "target"} %>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -27,4 +37,27 @@
   } catch(e) {
     console.log(e);
   }
+
+  function setClock(prefix, hours, minutes) {
+    var time    = Math.min(60000, 1.025 * (1000 * date.getSeconds() + date.getMilliseconds()));
+    var seconds = Math.floor(time / 1000);
+    var millis  = time % 1000;
+    rotate(prefix+'hourHand',   hours * 30 + minutes * 0.5);
+    rotate(prefix+'minuteHand', minutes * 6);
+    rotate(prefix+'secondHand', 6 * seconds + 3 * (1 + Math.cos(Math.PI + Math.PI * (0.001 * millis))));
+  }
+    
+  function rotate(id, angle) {
+    var element = document.getElementById(id);
+    if (element) {
+      element.setAttribute('transform', 'rotate(' + angle + ', 100, 100)');
+      if (element.getAttribute('visibility') == 'hidden') {
+        element.setAttribute('visibility', 'visible');
+      }
+    }
+  }
+
+  setClock("source",date.getHours(), date.getMinutes());
+  setClock("target",<%= @hours %>, <%= @minutes %>);
+
 </script>
