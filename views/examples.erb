@@ -1,0 +1,16 @@
+<div class="wrapper">
+<div class="title">
+  <h2>MyTime.io - Usage examples</h2>
+</div>
+<div class="hint">
+  <% @examples.each do |example| %>
+    <div>
+    <%= "<a href='/#{example}'>mytime.io/#{example}</a>"%>
+      </div>
+  <% end %>
+  <% if @show_more_links %>
+    <br>
+    <div><a href="/more_examples">even more examples</a></div>
+  <% end %>
+</div>
+</div>

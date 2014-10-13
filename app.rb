@@ -17,6 +17,39 @@ not_found do
   erb :not_found
 end
 
+get "/examples" do
+  timezones = ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"]
+  minutes = [""]
+  @examples = generate_examples(timezones,minutes).shuffle
+  @show_more_links = true
+  erb :examples
+end
+
+get "/more_examples" do
+  timezones = ["ACDT","ACST","ACT","ACWDT","ACWST","ACWT","ACÉ","ADDT","ADMT","ADT","AEDT","AEST","AET","AFT","AHDT","AHST","AKDT","AKST","AKT","AKTST","AKTT","ALMST","ALMT","AMST","AMT","ANAST","ANAT","ANT","APT","AQTST","AQTT","ARST","ART","ASB","ASHST","ASHT","AST","AT","AWDT","AWST","AWT","AZOMT","AZOST","AZOT","AZST","AZT","BAKST","BAKT","BDST","BDT","BEAT","BEAUT","BMT","BNT","BORT","BORTST","BOST","BOT","BRST","BRT","BST","BT","BTT","BURT","CANT","CAPT","CAST","CAT","CAWT","CCT","CDDT","CDT","CEMT","CEST","CET","CGST","CGT","CHADT","CHAST","CHAT","CHDT","CHOST","CHOT","CHUT","CKHST","CKT","CLST","CLT","CMT","COST","COT","CPT","CST","CT","CUT","CVST","CVT","CWT","CXT","ChST","DACT","DAVT","DDUT","DMT","DUSST","DUST","EASST","EAST","EAT","ECT","EDDT","EDT","EEST","EET","EGST","EGT","EHDT","EMT","EPT","EST","ET","EWT","FET","FFMT","FJST","FJT","FKST","FKT","FMT","FNST","FNT","FORT","FRUST","FRUT","GALT","GAMT","GBGT","GEST","GET","GFT","GHST","GILT","GMT","GST","GYT","HAC","HADT","HAE","HAP","HAR","HAST","HAT","HC","HDT","HE","HKST","HKT","HMT","HNC","HNE","HNP","HNR","HNT","HOVST","HOVT","HP","HR","HST","HT","ICT","IDDT","IDT","IHST","IMT","IOT","IRDT","IRKST","IRKT","IRST","ISST","IST","JAVT","JCST","JDT","JMT","JST","JWST","KART","KDT","KGST","KGT","KIZST","KIZT","KMT","KOST","KRAST","KRAT","KST","KUYST","KUYT","KWAT","LHDT","LHST","LHT","LINT","LKT","LRT","LST","MADMT","MADST","MADT","MAG","MAGST","MAGT","MALST","MALT","MART","MAWT","MDDT","MDST","MDT","MEST","MESZ","MET","MEZ","MHT","MIST","MMT","MOST","MOT","MPT","MSD","MSK","MSM","MST","MT","MUST","MUT","MVT","MWT","MYT","NCST","NCT","NDDT","NDT","NEGT","NEST","NET","NFT","NMT","NOVST","NOVT","NPT","NRT","NST","NT","NUT","NWT","NZDT","NZMT","NZST","NZT","OESZ","OEZ","OMSST","OMST","ORAST","ORAT","PDDT","PDT","PEST","PET","PETST","PETT","PGT","PHOT","PHST","PHT","PKST","PKT","PMDT","PMMT","PMST","PMT","PNT","PONT","PPMT","PPT","PST","PT","PWT","PYST","PYT","QMT","QYZST","QYZT","RET","RMT","ROTT","SAKST","SAKT","SAMST","SAMT","SAST","SBT","SCT","SDMT","SDT","SELČ","SET","SEČ","SGT","SHEST","SHET","SJMT","SMT","SRET","SRT","SST","STAT","SVEST","SVET","SWAT","SYOT","TAHT","TASST","TAST","TBIST","TBIT","TBMT","TFT","TJT","TKT","TLT","TMT","TOST","TOT","TRST","TRT","TSAT","TSB","TVT","ULAST","ULAT","URAST","URAT","UTC","UYHST","UYST","UYT","UZST","UZT","VET","VLAST","VLAT","VOLST","VOLT","VOST","VUST","VUT","WAKT","WARST","WART","WAST","WAT","WEMT","WEST","WESZ","WET","WEZ","WFT","WGST","WGT","WIB","WIT","WITA","WMT","WSDT","WSST","XJT","YAKST","YAKT","YDDT","YDT","YEKST","YEKT","YERST","YERT","YPT","YST","YWT"]
+  minutes=["","00","10","15","20","30","40","45","50"]
+  @examples = generate_examples(timezones,minutes).shuffle
+  erb :examples
+end
+
+def generate_examples(tz_array, minutes_array)
+  hours=(1..12)
+  hours24=(13..24)
+  examples = []
+  hours.each do |h|
+    h = h.to_s
+    minutes_array.each do |m|
+      tz_array.each do |tz|
+        ["am", "pm"].each do |apm|
+          time_string = (m != "") ? "#{h}:#{m}" : "#{h}"
+          examples << "#{time_string}#{apm}/#{tz}"
+        end
+      end
+    end
+  end
+  return examples
+end
+
 get "/" do
   @page_title = "Convert any time to local time (your timezone)"
   erb :not_found
