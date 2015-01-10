@@ -17,6 +17,10 @@ not_found do
   erb :not_found
 end
 
+get "/api" do
+  erb :api
+end
+
 get "/examples" do
   timezones = ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"]
   minutes = [""]
