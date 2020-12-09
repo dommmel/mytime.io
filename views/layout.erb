@@ -4,14 +4,15 @@
 <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro:400,700' rel='stylesheet' type='text/css'>
 <link rel="canonical" href="http://mytime.io<%= request.fullpath %>" />
 <meta name="google-site-verification" content="9QINmj0KWvuBWpabmxnOB7JIt8pzNxv-zcWMKGgldow" />
+<meta name="viewport" content="width=device-width">
 <title><%= @page_title %></title>
 <style type="text/css">
-  body { font-family: 'Anonymous Pro', "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;}
+  body {padding:0 0.5em;font-family: 'Anonymous Pro', "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;}
   h1 {font-size: 1em; display: inline;}
   div {text-align: center;}
   #local {font-size: 2em; line-height: 1.5em;}
-  #zone, .note {padding-top: 3em;font-size: 0.7em;}
-  .hint {padding: 2em;line-height: 2em;}
+  #zone, .note {padding-top: 3em;font-size: 0.7em;line-height:1.5;}
+  .hint {padding: 2em;line-height:2;}
   .note {color:grey;}
   .label {font-size: 0.7em; color: grey;}
   #zone > a, .note > a {color:darkgrey;}
@@ -27,7 +28,7 @@
     content: "";
     display: block;}
   .footer, .wrapper:after {height: 142px;}
-  .clock {height: 100%; width: 30%;margin: 50px 1% 0 1%; max-height: 200px; max-width: 200px; display:inline-block}
+  .clock {height: 100%; width: 45%;margin: 50px 1% 0 1%; max-height: 200px; max-width: 200px; display:inline-block}
   #sourcehourHand polygon {fill:blue!important;}
   #targethourHand polygon {fill:green!important;}
 </style>
