@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.3.0"
+ruby "2.7.2"
 gem 'sinatra'
-gem 'newrelic_rpm'
-gem 'TimezoneParser'
+gem 'TimezoneParser', '<1.0.0'
 gem "sinatra-contrib"

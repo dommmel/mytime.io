@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'sinatra/respond_with'
-require 'newrelic_rpm'
 require 'date'
 require 'timezone_parser'
 

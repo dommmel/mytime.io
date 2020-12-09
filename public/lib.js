@@ -43,7 +43,7 @@ function load(element) {
           element.innerHTML = date.toLocaleTimeString() + TZ;
         }
     }
-    xmlhttp.open("GET", "http://mytime.io/" +  element.getAttribute(mytimeAttr), true);
+    xmlhttp.open("GET", "//mytime.io/" +  element.getAttribute(mytimeAttr), true);
     xmlhttp.setRequestHeader('Accept', 'text/plain');
     xmlhttp.send();
 }
