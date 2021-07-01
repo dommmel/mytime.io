@@ -4,7 +4,7 @@ GEM
     TimezoneParser (0.4.0)
       insensitive_hash
       tzinfo
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.9)
     insensitive_hash (0.3.3)
     multi_json (1.15.0)
     mustermann (1.1.1)
@@ -25,7 +25,7 @@ GEM
       sinatra (= 2.1.0)
       tilt (~> 2.0)
     tilt (2.0.10)
-    tzinfo (2.0.3)
+    tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
 
 PLATFORMS
