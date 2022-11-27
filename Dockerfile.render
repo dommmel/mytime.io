@@ -6,7 +6,7 @@
 # - `v4-` images work with heroku-import v4.x. (We synced the tags.)
 
 ARG IMPORT_VERSION=v4
-ARG HEROKU_STACK=${IMPORT_VERSION}-heroku-20
+ARG HEROKU_STACK=${IMPORT_VERSION}-heroku-22
 FROM ghcr.io/renderinc/heroku-app-builder:${HEROKU_STACK} AS builder
 
 
