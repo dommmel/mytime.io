@@ -92,7 +92,7 @@ end
 
 def parse_timezone(string)
   tz = string.upcase
-  supported_timezones = ["GMT", "UTC", "UT", "PST", "PDT", "EST", "EDT", "CST", "CDT", "MST", "MDT"]
+  supported_timezones = ["GMT", "UTC", "UT", "PST", "PDT",  "CST", "CDT", "MST", "MDT"]
   if supported_timezones.include? tz
     @time_zone = tz
     return tz 

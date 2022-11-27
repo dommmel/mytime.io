@@ -4,7 +4,7 @@ GEM
     TimezoneParser (0.4.0)
       insensitive_hash
       tzinfo
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     insensitive_hash (0.3.3)
     multi_json (1.15.0)
     mustermann (1.1.1)
