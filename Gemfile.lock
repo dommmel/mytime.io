@@ -15,7 +15,9 @@ GEM
     rack (2.2.3)
     rack-protection (2.2.0)
       rack
+    rbtree (0.4.5)
     ruby2_keywords (0.0.5)
+    set (1.0.3)
     sinatra (2.2.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
@@ -27,6 +29,9 @@ GEM
       rack-protection (= 2.2.0)
       sinatra (= 2.2.0)
       tilt (~> 2.0)
+    sorted_set (1.0.3)
+      rbtree
+      set (~> 1.0)
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -39,6 +44,7 @@ DEPENDENCIES
   puma
   sinatra
   sinatra-contrib
+  sorted_set (~> 1.0)
 
 RUBY VERSION
    ruby 3.1.2p20
