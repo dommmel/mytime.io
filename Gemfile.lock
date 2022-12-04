@@ -7,33 +7,33 @@ GEM
     concurrent-ruby (1.1.10)
     insensitive_hash (0.3.3)
     multi_json (1.15.0)
-    mustermann (2.0.2)
+    mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
     puma (6.0.0)
       nio4r (~> 2.0)
     rack (2.2.4)
-    rack-protection (2.2.3)
+    rack-protection (3.0.4)
       rack
     rbtree (0.4.5)
     ruby2_keywords (0.0.5)
     set (1.0.3)
-    sinatra (2.2.3)
-      mustermann (~> 2.0)
-      rack (~> 2.2)
-      rack-protection (= 2.2.3)
+    sinatra (3.0.4)
+      mustermann (~> 3.0)
+      rack (~> 2.2, >= 2.2.4)
+      rack-protection (= 3.0.4)
       tilt (~> 2.0)
-    sinatra-contrib (2.2.3)
+    sinatra-contrib (3.0.4)
       multi_json
-      mustermann (~> 2.0)
-      rack-protection (= 2.2.3)
-      sinatra (= 2.2.3)
+      mustermann (~> 3.0)
+      rack-protection (= 3.0.4)
+      sinatra (= 3.0.4)
       tilt (~> 2.0)
     sorted_set (1.0.3)
       rbtree
       set (~> 1.0)
     tilt (2.0.11)
-    tzinfo (2.0.4)
+    tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
 
 PLATFORMS
@@ -44,10 +44,10 @@ DEPENDENCIES
   puma
   sinatra
   sinatra-contrib
-  sorted_set (~> 1.0)
+  sorted_set
 
 RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.1.4
+   2.3.26
