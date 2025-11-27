@@ -22,6 +22,8 @@ GEM
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
+    rackup (2.2.1)
+      rack (>= 3)
     rbtree (0.4.6)
     ruby2_keywords (0.0.5)
     set (1.1.2)
@@ -52,6 +54,7 @@ PLATFORMS
 DEPENDENCIES
   TimezoneParser (< 1.0.0)
   puma
+  rackup
   sinatra
   sinatra-contrib
   sorted_set
